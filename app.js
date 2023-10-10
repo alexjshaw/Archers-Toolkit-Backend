@@ -4,11 +4,16 @@ var path = require('path');
 var cors = require('cors')
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var helmet = require('helmet')
+require('./database/mongo.js')
+var { jwtCheck } = require('./auth.js')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var userRouter = require( './routes/user', jwtCheck)
 
 var app = express();
+app.use(express.json())
 app.use(cors())
 
 // view engine setup
@@ -21,8 +26,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        'default-src': ["'self'", 'https://dev-wn87thdr6glngf33.uk.auth0.com'],
+        'script-src': ["'self'", (req, res) => `'nonce-${req.cspNonce}'`],
+        'connect-src': ["'self'", 'ws://localhost:24678', 'http://localhost:24678', 'https://dev-wn87thdr6glngf33.uk.auth0.com'],
+        'img-src': ["'self'", 'data:', 'https://s.gravatar.com', 'https://*.wp.com']
+      }
+    }
+  })
+)
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/user', userRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
