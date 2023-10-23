@@ -4,7 +4,7 @@ const arrowSchema = new mongoose.Schema({
   arrowNumber: { type: Number, required: true, min: 1 },
   arrowScore: { type: Number, min: 0, max: 10 },
   isX: { type: Boolean, required: true, default: false }
-})
+}, { timestamps: true })
 
 const scoreSchema = new mongoose.Schema({
   createdBy: { type: String, required: true },

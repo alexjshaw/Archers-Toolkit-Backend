@@ -1,8 +1,8 @@
-const { Router } = require('express')
 const { createArcherProfile, getCurrentArcherProfiles, searchArcherProfiles, deleteArcherProfile, updateArcherProfile } = require('../controllers/archerProfile.js')
 const { extractAuth0Id, extractMongoId } = require('../auth.js')
 
-const router = Router()
+var express = require('express');
+var router = express.Router();
 
 router.post('/', extractMongoId, createArcherProfile)
 router.get('/', extractMongoId, getCurrentArcherProfiles)

@@ -8,9 +8,12 @@ var helmet = require('helmet')
 require('./database/mongo.js')
 var { jwtCheck } = require('./auth.js')
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var userRouter = require( './routes/user', jwtCheck)
+var scoreRouter = require('./routes/score', jwtCheck)
+var archerProfileRouter = require('./routes/archerProfile', jwtCheck)
+var equipmentRouter = require('./routes/equipment', jwtCheck)
+var sightmarkRouter = require('./routes/sightmark', jwtCheck)
+var roundTypeRouter = require('./routes/roundType', jwtCheck)
 
 var app = express();
 app.use(express.json())
@@ -39,9 +42,15 @@ app.use(
   })
 )
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
+
 app.use('/user', userRouter)
+app.use('/score', jwtCheck, scoreRouter)
+app.use('/archerProfile', jwtCheck, archerProfileRouter)
+app.use('/equipment', jwtCheck, equipmentRouter)
+app.use('/sightmark', jwtCheck, sightmarkRouter)
+app.use('/roundtype', jwtCheck, roundTypeRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

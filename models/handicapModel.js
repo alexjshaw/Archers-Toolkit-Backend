@@ -3,7 +3,9 @@ const mongoose = require('mongoose')
 const handicapSchema = new mongoose.Schema({
   Handicap: {
     type: Number,
-    required: true
+    required: true,
+    min: 0,
+    max: 150
   },
   roundTypes: {
     type: Map,

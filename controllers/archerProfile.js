@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const ArcherProfile = require('../database/archerProfile.js')
+const {ArcherProfile} = require('../database/archerProfile.js')
 const { sendDataResponse, sendErrorResponse } = require('../utils/responses.js')
 
 const createArcherProfile = async (req, res) => {

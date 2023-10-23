@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const Equipment = require('../database/equipment.js')
+const {Equipment} = require('../database/equipment.js')
 const { sendDataResponse, sendErrorResponse } = require('../utils/responses.js')
 
 const createEquipment = async (req, res) => {

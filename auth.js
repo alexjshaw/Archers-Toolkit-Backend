@@ -14,7 +14,6 @@ const checkScopes = (scope) => requiredScopes(scope)
 // }
 
 const extractAuth0Id = (req, res, next) => {
-  console.log('req', req.headers.authorization);
 
   // Extract the token from the Authorization header
   const authHeader = req.headers.authorization || '';

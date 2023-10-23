@@ -12,7 +12,6 @@ class User {
   }
 
   static async findOne (query = {}) {
-    console.log('query', query)
     try {
       const user = await UserModel.findOne(query)
       return user
